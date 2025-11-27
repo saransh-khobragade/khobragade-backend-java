@@ -3,10 +3,20 @@ spring:
     name: spring-crud-api
   
   datasource:
+    # For local development: uses DATABASE_HOST, DATABASE_PORT, etc. from docker-compose
+    # For Render: DATABASE_URL is parsed by DataSourceConfig.java
     url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:test_db}
     username: ${DATABASE_USER:postgres}
     password: ${DATABASE_PASSWORD:password}
     driver-class-name: org.postgresql.Driver
+    hikari:
+      # Connection pool settings for better reliability (especially for remote connections)
+      connection-timeout: 30000
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 300000
+      max-lifetime: 600000
+      leak-detection-threshold: 60000
   
   jpa:
     show-sql: true
