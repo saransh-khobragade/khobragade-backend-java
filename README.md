@@ -15,3 +15,6 @@ echo $DATABASE_NAME
 
 ./gradlew bootRun
 
+render login
+render services
+
